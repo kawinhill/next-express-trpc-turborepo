@@ -8,10 +8,6 @@ Modern full-stack TypeScript monorepo with type-safe APIs and shared packages.
 # Install dependencies
 pnpm install
 
-# Copy environment files
-cp apps/server/env.example apps/server/.env
-cp apps/web/env.example apps/web/.env.local
-
 # Start development
 pnpm dev
 ```
