@@ -1,0 +1,174 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "errors": {
+    "VALIDATION_ERROR": "Validation failed",
+    "NETWORK_ERROR": "Network connection error",
+    "SERVER_ERROR": "Server error occurred",
+    "NOT_FOUND": "Resource not found",
+    "UNAUTHORIZED": "Access denied - unauthorized",
+    "FORBIDDEN": "Access forbidden",
+    "TOO_MANY_REQUESTS": "Too many requests - please try again later",
+    "GENERIC_ERROR": "An unexpected error occurred",
+    "types": {
+      "VALIDATION_ERROR": "Validation Error",
+      "NETWORK_ERROR": "Network Error",
+      "SERVER_ERROR": "Server Error",
+      "NOT_FOUND": "Not Found",
+      "UNAUTHORIZED": "Unauthorized",
+      "FORBIDDEN": "Forbidden",
+      "TOO_MANY_REQUESTS": "Too Many Requests",
+      "GENERIC_ERROR": "Generic Error"
+    }
+  },
+  "home": {
+    "title": "Next.js + Express + tRPC\nTurborepo",
+    "subtitle": "A modern full-stack monorepo showcasing enterprise-grade architecture with type safety, security, and scalability",
+    "status": {
+      "api": "API Integration",
+      "trpc": "tRPC Integration",
+      "database": "Database Integration"
+    },
+    "features": {
+      "title": "Architecture Features",
+      "typeScript": "TypeScript",
+      "typeScriptDesc": "End-to-end type safety across the entire stack",
+      "monorepo": "Monorepo",
+      "monorepoDesc": "Organized codebase with shared packages and utilities",
+      "security": "Security",
+      "securityDesc": "Rate limiting, CORS, security headers, and input validation",
+      "trpc": "tRPC",
+      "trpcDesc": "Type-safe APIs with automatic client generation",
+      "nextjs": "Next.js",
+      "nextjsDesc": "React framework with SSR, routing, and optimization",
+      "express": "Express",
+      "expressDesc": "Fast, unopinionated web framework for Node.js",
+      "database": "Database",
+      "databaseDesc": "Prisma ORM with type-safe database operations",
+      "validation": "Validation",
+      "validationDesc": "Comprehensive input validation with Zod schemas",
+      "components": "Components",
+      "componentsDesc": "Reusable UI components with shadcn/ui"
+    }
+  },
+  "systemStatus": {
+    "title": "System Status",
+    "subtitle": "Real-time monitoring of your development environment",
+    "apiServer": {
+      "name": "API Server",
+      "responding": "Server responding",
+      "connectionFailed": "Connection failed"
+    },
+    "trpcEndpoint": {
+      "name": "tRPC Endpoint",
+      "responding": "tRPC responding",
+      "unavailable": "tRPC unavailable",
+      "invalidResponse": "Invalid tRPC response"
+    },
+    "database": {
+      "name": "Database",
+      "connected": "Database connected",
+      "unreachable": "Database unreachable",
+      "invalidResponse": "Invalid database response"
+    },
+    "status": {
+      "checking": "Checking",
+      "online": "Online",
+      "offline": "Offline",
+      "checkingStatus": "Checking status...",
+      "responseTime": "Response time: {time}ms"
+    }
+  },
+  "components": {
+    "apiTest": {
+      "title": "API Connection Test",
+      "subtitle": "RESTful API Endpoint",
+      "testing": "Testing",
+      "failed": "Failed",
+      "success": "Success",
+      "testingConnection": "Testing API connection...",
+      "connectionFailed": "Connection Failed",
+      "connectionSuccessful": "Connection Successful",
+      "response": "Response",
+      "responseTime": "Response Time",
+      "httpStatus": "HTTP Status"
+    },
+    "trpcDemo": {
+      "title": "tRPC Integration",
+      "subtitle": "Type-safe API Communication",
+      "loading": "Loading",
+      "failed": "Failed",
+      "connected": "Connected",
+      "enterName": "Enter your name",
+      "namePlaceholder": "Your name...",
+      "send": "Send",
+      "callingEndpoint": "Calling tRPC endpoint...",
+      "callFailed": "tRPC Call Failed",
+      "responseReceived": "tRPC Response Received",
+      "timestamp": "Timestamp"
+    },
+    "visitorCounter": {
+      "title": "Visitor Counter",
+      "subtitle": "tRPC + PostgreSQL",
+      "subtitleOffline": "Server Offline",
+      "offline": "Offline",
+      "live": "Live",
+      "connectionFailed": "Server Connection Failed",
+      "retry": "Retry",
+      "loading": "Loading...",
+      "unableToLoad": "Unable to load visitor count",
+      "totalVisits": "Total Visits",
+      "logMyVisit": "Log My Visit",
+      "loggingVisit": "Logging Visit...",
+      "lastUpdated": "Last updated: {time}"
+    },
+    "serverStatus": {
+      "checking": "Checking server status...",
+      "online": "Server is online",
+      "offline": "Server is offline",
+      "responseTime": "Response time: {time}ms"
+    },
+    "trpcTest": {
+      "testing": "Testing tRPC connection...",
+      "connected": "tRPC connected",
+      "failed": "tRPC connection failed",
+      "features": "Features validated:",
+      "typesSafe": "Types are safe",
+      "validation": "Validation works",
+      "errorHandling": "Error handling works"
+    },
+    "errorTest": {
+      "title": "Error Testing",
+      "subtitle": "Localized Error Handling",
+      "selectError": "Select Error Type",
+      "triggerError": "Trigger Error",
+      "triggering": "Triggering...",
+      "errorOccurred": "Error Occurred",
+      "noError": "No Error",
+      "testError": "Test Error"
+    }
+  },
+  "locale": {
+    "switch": "Switch Language",
+    "english": "English",
+    "thai": "ไทย"
+  }
+}

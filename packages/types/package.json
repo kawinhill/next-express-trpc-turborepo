@@ -1,0 +1,32 @@
+{
+  "name": "@monorepo/types",
+  "author": "ZenithDreamer",
+  "version": "1.0.0",
+  "keywords": [],
+  "license": "ISC",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.{ts,js,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@monorepo/tsconfig": "workspace:*",
+    "@monorepo/eslint-config": "workspace:*",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  }
+}

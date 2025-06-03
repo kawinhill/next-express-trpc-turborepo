@@ -1,0 +1,174 @@
+{
+  "common": {
+    "loading": "กำลังโหลด...",
+    "error": "ข้อผิดพลาด",
+    "success": "สำเร็จ",
+    "retry": "ลองใหม่",
+    "cancel": "ยกเลิก",
+    "save": "บันทึก",
+    "delete": "ลบ",
+    "edit": "แก้ไข",
+    "close": "ปิด",
+    "back": "กลับ",
+    "next": "ถัดไป",
+    "previous": "ก่อนหน้า",
+    "submit": "ส่ง"
+  },
+  "navigation": {
+    "home": "หน้าแรก",
+    "about": "เกี่ยวกับ",
+    "contact": "ติดต่อ"
+  },
+  "errors": {
+    "VALIDATION_ERROR": "การตรวจสอบล้มเหลว",
+    "NETWORK_ERROR": "ข้อผิดพลาดการเชื่อมต่อเครือข่าย",
+    "SERVER_ERROR": "เกิดข้อผิดพลาดของเซิร์ฟเวอร์",
+    "NOT_FOUND": "ไม่พบทรัพยากร",
+    "UNAUTHORIZED": "ไม่ได้รับอนุญาตให้เข้าถึง",
+    "FORBIDDEN": "การเข้าถึงถูกห้าม",
+    "TOO_MANY_REQUESTS": "คำขอมากเกินไป - กรุณาลองใหม่ภายหลัง",
+    "GENERIC_ERROR": "เกิดข้อผิดพลาดที่ไม่คาดคิด",
+    "types": {
+      "VALIDATION_ERROR": "ข้อผิดพลาดการตรวจสอบ",
+      "NETWORK_ERROR": "ข้อผิดพลาดเครือข่าย",
+      "SERVER_ERROR": "ข้อผิดพลาดเซิร์ฟเวอร์",
+      "NOT_FOUND": "ไม่พบ",
+      "UNAUTHORIZED": "ไม่ได้รับอนุญาต",
+      "FORBIDDEN": "ถูกห้าม",
+      "TOO_MANY_REQUESTS": "คำขอมากเกินไป",
+      "GENERIC_ERROR": "ข้อผิดพลาดทั่วไป"
+    }
+  },
+  "home": {
+    "title": "Next.js + Express + tRPC\nTurborepo",
+    "subtitle": "โมโนรีโปฟูลสแต็กที่ทันสมัย แสดงสถาปัตยกรรมระดับองค์กร พร้อมการตรวจสอบชนิดข้อมูลที่เข้มงวด ความปลอดภัย และความสามารถในการปรับขยายระบบ",
+    "status": {
+      "api": "การเชื่อมต่อ API",
+      "trpc": "การเชื่อมต่อ tRPC",
+      "database": "การเชื่อมต่อฐานข้อมูล"
+    },
+    "features": {
+      "title": "คุณสมบัติเด่นของสถาปัตยกรรม",
+      "typeScript": "TypeScript",
+      "typeScriptDesc": "ความปลอดภัยของชนิดข้อมูลตั้งแต่ต้นจนจบสแต็ก",
+      "monorepo": "Monorepo",
+      "monorepoDesc": "โค้ดเบสที่จัดระเบียบพร้อมแพ็คเกจและยูทิลิตี้ที่ใช้ร่วมกัน",
+      "security": "ความปลอดภัย",
+      "securityDesc": "การจำกัดอัตราการเรียกใช้งาน, CORS, ส่วนหัวเพื่อความปลอดภัย และการตรวจสอบข้อมูลนำเข้า",
+      "trpc": "tRPC",
+      "trpcDesc": "API ที่ปลอดภัยเชิงชนิดข้อมูล พร้อมการสร้างไคลเอนต์อัตโนมัติ",
+      "nextjs": "Next.js",
+      "nextjsDesc": "เฟรมเวิร์ก React พร้อม SSR การกำหนดเส้นทาง และการเพิ่มประสิทธิภาพ",
+      "express": "Express",
+      "expressDesc": "เว็บเฟรมเวิร์กที่รวดเร็วและยืดหยุ่นสำหรับ Node.js",
+      "database": "ฐานข้อมูล",
+      "databaseDesc": "Prisma ORM พร้อมการดำเนินการฐานข้อมูลที่ปลอดภัยเชิงชนิดข้อมูล",
+      "validation": "การตรวจสอบ",
+      "validationDesc": "การตรวจสอบข้อมูลนำเข้าอย่างครอบคลุมด้วยสกีมา Zod",
+      "components": "คอมโพเนนต์",
+      "componentsDesc": "คอมโพเนนต์ UI ที่ใช้ซ้ำได้ด้วย shadcn/ui"
+    }
+  },
+  "systemStatus": {
+    "title": "สถานะระบบ",
+    "subtitle": "การตรวจสอบแบบเรียลไทม์ของสภาพแวดล้อมการพัฒนาของคุณ",
+    "apiServer": {
+      "name": "เซิร์ฟเวอร์ API",
+      "responding": "เซิร์ฟเวอร์ตอบสนอง",
+      "connectionFailed": "การเชื่อมต่อล้มเหลว"
+    },
+    "trpcEndpoint": {
+      "name": "ปลายทาง tRPC",
+      "responding": "tRPC ตอบสนอง",
+      "unavailable": "tRPC ไม่พร้อมใช้งาน",
+      "invalidResponse": "การตอบสนอง tRPC ไม่ถูกต้อง"
+    },
+    "database": {
+      "name": "ฐานข้อมูล",
+      "connected": "ฐานข้อมูลเชื่อมต่อแล้ว",
+      "unreachable": "ไม่สามารถเข้าถึงฐานข้อมูลได้",
+      "invalidResponse": "การตอบสนองฐานข้อมูลไม่ถูกต้อง"
+    },
+    "status": {
+      "checking": "กำลังตรวจสอบ",
+      "online": "ออนไลน์",
+      "offline": "ออฟไลน์",
+      "checkingStatus": "กำลังตรวจสอบสถานะ...",
+      "responseTime": "เวลาตอบสนอง: {time}ms"
+    }
+  },
+  "components": {
+    "apiTest": {
+      "title": "การทดสอบการเชื่อมต่อ API",
+      "subtitle": "ปลายทาง RESTful API",
+      "testing": "กำลังทดสอบ",
+      "failed": "ล้มเหลว",
+      "success": "สำเร็จ",
+      "testingConnection": "กำลังทดสอบการเชื่อมต่อ API...",
+      "connectionFailed": "การเชื่อมต่อล้มเหลว",
+      "connectionSuccessful": "การเชื่อมต่อสำเร็จ",
+      "response": "การตอบสนอง",
+      "responseTime": "เวลาตอบสนอง",
+      "httpStatus": "สถานะ HTTP"
+    },
+    "trpcDemo": {
+      "title": "การสาธิตการใช้งาน tRPC",
+      "subtitle": "การสื่อสาร API ที่ปลอดภัยเชิงชนิดข้อมูล",
+      "loading": "กำลังโหลด",
+      "failed": "ล้มเหลว",
+      "connected": "เชื่อมต่อแล้ว",
+      "enterName": "ใส่ชื่อของคุณ",
+      "namePlaceholder": "ชื่อของคุณ...",
+      "send": "ส่ง",
+      "callingEndpoint": "กำลังเรียกปลายทาง tRPC...",
+      "callFailed": "การเรียก tRPC ล้มเหลว",
+      "responseReceived": "ได้รับการตอบสนอง tRPC",
+      "timestamp": "เวลา"
+    },
+    "visitorCounter": {
+      "title": "ตัวนับผู้เยี่ยมชม",
+      "subtitle": "tRPC + PostgreSQL",
+      "subtitleOffline": "เซิร์ฟเวอร์ออฟไลน์",
+      "offline": "ออฟไลน์",
+      "live": "สด",
+      "connectionFailed": "การเชื่อมต่อเซิร์ฟเวอร์ล้มเหลว",
+      "retry": "ลองใหม่",
+      "loading": "กำลังโหลด...",
+      "unableToLoad": "ไม่สามารถโหลดจำนวนผู้เยี่ยมชมได้",
+      "totalVisits": "จำนวนผู้เข้าชมทั้งหมด",
+      "logMyVisit": "บันทึกการเยี่ยมชมของฉัน",
+      "loggingVisit": "กำลังบันทึกการเยี่ยมชม...",
+      "lastUpdated": "อัปเดตล่าสุด: {time}"
+    },
+    "serverStatus": {
+      "checking": "กำลังตรวจสอบสถานะเซิร์ฟเวอร์...",
+      "online": "เซิร์ฟเวอร์ออนไลน์",
+      "offline": "เซิร์ฟเวอร์ออฟไลน์",
+      "responseTime": "เวลาตอบสนอง: {time}ms"
+    },
+    "trpcTest": {
+      "testing": "กำลังทดสอบการเชื่อมต่อ tRPC...",
+      "connected": "tRPC เชื่อมต่อแล้ว",
+      "failed": "การเชื่อมต่อ tRPC ล้มเหลว",
+      "features": "คุณสมบัติที่ตรวจสอบแล้ว:",
+      "typesSafe": "ชนิดข้อมูลปลอดภัย",
+      "validation": "การตรวจสอบความถูกต้องทำงาน",
+      "errorHandling": "การจัดการข้อผิดพลาดทำงาน"
+    },
+    "errorTest": {
+      "title": "การทดสอบข้อผิดพลาด",
+      "subtitle": "การจัดการข้อผิดพลาดตามภาษาที่เลือก",
+      "selectError": "เลือกประเภทข้อผิดพลาด",
+      "triggerError": "เรียกข้อผิดพลาด",
+      "triggering": "กำลังเรียก...",
+      "errorOccurred": "เกิดข้อผิดพลาด",
+      "noError": "ไม่มีข้อผิดพลาด",
+      "testError": "ทดสอบข้อผิดพลาด"
+    }
+  },
+  "locale": {
+    "switch": "เปลี่ยนภาษา",
+    "english": "English",
+    "thai": "ไทย"
+  }
+}

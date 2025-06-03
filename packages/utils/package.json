@@ -1,0 +1,34 @@
+{
+  "name": "@monorepo/utils",
+  "author": "ZenithDreamer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "keywords": [],
+  "license": "ISC",
+  "scripts": {
+    "build": "tsc",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "@monorepo/tsconfig": "workspace:*",
+    "@monorepo/eslint-config": "workspace:*",
+    "typescript": "^5.8.3"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./styles": {
+      "types": "./dist/styles.d.ts",
+      "default": "./dist/styles.js"
+    }
+  }
+}

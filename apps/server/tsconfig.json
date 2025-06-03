@@ -1,0 +1,8 @@
+{
+  "extends": "@monorepo/tsconfig/express.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts", "eslint.config.mjs"]
+}

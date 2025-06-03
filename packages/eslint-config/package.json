@@ -1,0 +1,35 @@
+{
+  "name": "@monorepo/eslint-config",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./base.js",
+  "type": "module",
+  "exports": {
+    "./base": "./base.js",
+    "./next": "./next.js",
+    "./express": "./express.js",
+    "./react-internal": "./react-internal.js"
+  },
+  "files": [
+    "next.js",
+    "express.js",
+    "base.js",
+    "react-internal.js"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "@eslint/compat": "^1.2.8",
+    "@eslint/eslintrc": "^3.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
+    "globals": "^16.0.0",
+    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-security": "^3.0.1",
+    "eslint-config-prettier": "^10.1.1",
+    "@next/eslint-plugin-next": "^15.2.4",
+    "eslint-plugin-perfectionist": "^4.11.0",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "typescript-eslint": "^8.29.0"
+  }
+}
