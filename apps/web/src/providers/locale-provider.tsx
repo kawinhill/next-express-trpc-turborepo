@@ -2,8 +2,8 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
-import enMessages from "../messages/en.json";
-import thMessages from "../messages/th.json";
+import { NextIntlClientProvider } from "next-intl";
+import { useTranslations } from "next-intl";
 
 type Locale = "en" | "th";
 
@@ -14,11 +14,6 @@ interface LocaleContextType {
 }
 
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
-
-const messages: Record<Locale, Record<string, any>> = {
-  en: enMessages,
-  th: thMessages,
-};
 
 function getInitialLocale(): Locale {
   // Check if we're on the client side
@@ -59,14 +54,83 @@ function getInitialLocale(): Locale {
   return "en";
 }
 
+// Translation wrapper component that uses next-intl
+function TranslationWrapper({
+  children,
+  locale,
+  setLocale,
+}: {
+  children: ReactNode;
+  locale: Locale;
+  setLocale: (locale: Locale) => void;
+}) {
+  const translations = useTranslations();
+
+  // Custom translation function that preserves the existing API
+  const t = (key: string, params?: Record<string, string | number>) => {
+    try {
+      // First try direct key access
+      if (translations.has(key)) {
+        return translations(key as any, params);
+      }
+
+      // Try nested key access
+      const keys = key.split(".");
+      if (keys.length > 1) {
+        const namespace = keys[0];
+        const nestedKey = keys.slice(1).join(".");
+        if (translations.has(`${namespace}.${nestedKey}` as any)) {
+          return translations(`${namespace}.${nestedKey}` as any, params);
+        }
+      }
+
+      // Try to access via raw
+      let message: any = translations.raw("");
+      for (const k of keys) {
+        message = message?.[k];
+      }
+
+      if (message && typeof message === "string") {
+        // Handle parameter substitution manually
+        if (params) {
+          Object.entries(params).forEach(([paramKey, value]) => {
+            message = message.replace(`{${paramKey}}`, String(value));
+          });
+        }
+        return message;
+      }
+
+      // Fallback: return the key if not found
+      return key;
+    } catch (error) {
+      // Ultimate fallback
+      return key;
+    }
+  };
+
+  const contextValue = {
+    locale,
+    setLocale,
+    t,
+  };
+
+  return (
+    <LocaleContext.Provider value={contextValue}>
+      {children}
+    </LocaleContext.Provider>
+  );
+}
+
 interface LocaleProviderProps {
   children: ReactNode;
   initialLocale?: Locale;
+  messages?: any;
 }
 
 export function LocaleProvider({
   children,
   initialLocale,
+  messages,
 }: LocaleProviderProps) {
   // Use initialLocale from server if provided, otherwise detect client-side
   const [locale, setLocaleState] = useState<Locale>(() => {
@@ -97,51 +161,17 @@ export function LocaleProvider({
 
     // Set cookie for server-side detection (with longer expiry and proper path)
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
-  };
 
-  const t = (key: string, params?: Record<string, string | number>) => {
-    // Navigate through nested object using dot notation
-    const keys = key.split(".");
-    let message: any = messages[locale];
-
-    for (const k of keys) {
-      message = message?.[k];
-    }
-
-    // Fallback to English if not found
-    if (!message) {
-      let fallback: any = messages.en;
-      for (const k of keys) {
-        fallback = fallback?.[k];
-      }
-      message = fallback;
-    }
-
-    // If still not found, return the key
-    if (!message) {
-      message = key;
-    }
-
-    // Handle parameter substitution
-    if (params && typeof message === "string") {
-      Object.entries(params).forEach(([paramKey, value]) => {
-        message = message.replace(`{${paramKey}}`, String(value));
-      });
-    }
-
-    return String(message);
-  };
-
-  const contextValue = {
-    locale,
-    setLocale,
-    t,
+    // Reload the page to apply the new locale
+    window.location.reload();
   };
 
   return (
-    <LocaleContext.Provider value={contextValue}>
-      {children}
-    </LocaleContext.Provider>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <TranslationWrapper locale={locale} setLocale={setLocale}>
+        {children}
+      </TranslationWrapper>
+    </NextIntlClientProvider>
   );
 }
 

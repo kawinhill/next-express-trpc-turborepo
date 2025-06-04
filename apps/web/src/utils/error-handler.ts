@@ -1,24 +1,24 @@
 // import { useTranslations } from 'next-intl'
 import type { LocalizedError, ErrorCode } from "@monorepo/types";
+import { useErrorLocalization } from "./error-localization";
 
 export function useErrorHandler() {
-  // const t = useTranslations('errors')
+  const { getLocalizedError } = useErrorLocalization();
 
   const getErrorMessage = (error: LocalizedError | Error | string): string => {
     if (typeof error === "string") {
-      return error;
+      return getLocalizedError(error);
     }
 
     if (error instanceof Error) {
-      return error.message;
+      return getLocalizedError(error.message);
     }
 
     if ("messageKey" in error && error.messageKey) {
-      // return t(error.messageKey.replace('errors.', '') as any) || error.messageKey
-      return error.messageKey;
+      return getLocalizedError(error.messageKey);
     }
 
-    return "Unknown error";
+    return getLocalizedError("Unknown error");
   };
 
   const handleApiError = (error: any): string => {
@@ -30,7 +30,7 @@ export function useErrorHandler() {
       return getErrorMessage(error.message);
     }
 
-    return "Network error";
+    return getLocalizedError("Network error");
   };
 
   return {

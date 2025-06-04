@@ -37,6 +37,43 @@ export const ERROR_CODES = {
 
 export type ErrorCode = keyof typeof ERROR_CODES;
 
+// Helper function to normalize error codes
+function normalizeErrorCode(errorMessage: string): string {
+  const upperMessage = errorMessage.toUpperCase();
+  
+  // Direct mapping from ERROR_CODES
+  for (const [key, value] of Object.entries(ERROR_CODES)) {
+    if (upperMessage.includes(key) || upperMessage.includes(value)) {
+      return value;
+    }
+  }
+  
+  // Additional patterns
+  if (upperMessage.includes("VALIDATION") || upperMessage.includes("INVALID")) {
+    return "VALIDATION_ERROR";
+  }
+  if (upperMessage.includes("NETWORK") || upperMessage.includes("CONNECTION")) {
+    return "NETWORK_ERROR";
+  }
+  if (upperMessage.includes("SERVER") || upperMessage.includes("INTERNAL")) {
+    return "SERVER_ERROR";
+  }
+  if (upperMessage.includes("NOT_FOUND") || upperMessage.includes("404")) {
+    return "NOT_FOUND";
+  }
+  if (upperMessage.includes("UNAUTHORIZED") || upperMessage.includes("401")) {
+    return "UNAUTHORIZED";
+  }
+  if (upperMessage.includes("FORBIDDEN") || upperMessage.includes("403")) {
+    return "FORBIDDEN";
+  }
+  if (upperMessage.includes("TOO_MANY") || upperMessage.includes("RATE")) {
+    return "TOO_MANY_REQUESTS";
+  }
+  
+  return "GENERIC_ERROR";
+}
+
 // Hook for error localization
 export function useErrorLocalization() {
   const { t } = useLocale();
@@ -87,46 +124,4 @@ export function useErrorLocalization() {
     getLocalizedError,
     getErrorType,
   };
-}
-
-// Helper function to normalize error codes
-function normalizeErrorCode(errorMessage: string): string {
-  const upperError = errorMessage.toUpperCase().trim();
-
-  // Direct mapping if exists
-  if (upperError in ERROR_CODES) {
-    return ERROR_CODES[upperError as ErrorCode];
-  }
-
-  // Pattern matching for common error patterns
-  if (upperError.includes("VALIDATION") || upperError.includes("INVALID")) {
-    return ERROR_CODES.VALIDATION_ERROR;
-  }
-
-  if (upperError.includes("NETWORK") || upperError.includes("CONNECTION")) {
-    return ERROR_CODES.NETWORK_ERROR;
-  }
-
-  if (upperError.includes("UNAUTHORIZED") || upperError.includes("AUTH")) {
-    return ERROR_CODES.UNAUTHORIZED;
-  }
-
-  if (upperError.includes("FORBIDDEN") || upperError.includes("ACCESS")) {
-    return ERROR_CODES.FORBIDDEN;
-  }
-
-  if (upperError.includes("NOT_FOUND") || upperError.includes("404")) {
-    return ERROR_CODES.NOT_FOUND;
-  }
-
-  if (upperError.includes("TOO_MANY") || upperError.includes("RATE")) {
-    return ERROR_CODES.TOO_MANY_REQUESTS;
-  }
-
-  if (upperError.includes("SERVER") || upperError.includes("500")) {
-    return ERROR_CODES.SERVER_ERROR;
-  }
-
-  // Default to generic error
-  return ERROR_CODES.GENERIC_ERROR;
 }

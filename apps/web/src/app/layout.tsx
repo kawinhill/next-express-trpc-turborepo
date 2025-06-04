@@ -23,11 +23,14 @@ export default async function RootLayout({
       ? detectedLocale
       : "en";
 
+  // Load messages for the detected locale
+  const messages = (await import(`../messages/${initialLocale}.json`)).default;
+
   return (
     <html lang={initialLocale}>
       <body>
         <TRPCProvider>
-          <LocaleProvider initialLocale={initialLocale}>
+          <LocaleProvider initialLocale={initialLocale} messages={messages}>
             <ThemeProvider attribute="class" enableSystem>
               {children}
             </ThemeProvider>
