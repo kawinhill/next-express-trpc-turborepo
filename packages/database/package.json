@@ -4,6 +4,7 @@
   "private": true,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
@@ -11,7 +12,8 @@
     "db:push": "node scripts/push.js",
     "db:studio": "node scripts/studio.js",
     "db:setup": "node setup.js",
-    "postinstall": "node scripts/generate.js"
+    "postinstall": "node scripts/generate.js",
+    "dev": "tsc --watch"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -24,6 +26,7 @@
   },
   "exports": {
     ".": {
+      "source": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     }

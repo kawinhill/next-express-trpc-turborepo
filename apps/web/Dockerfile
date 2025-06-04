@@ -26,7 +26,6 @@ RUN pnpm install
 # Copy web source code and ALL configuration files
 COPY apps/web/src ./apps/web/src
 COPY apps/web/public ./apps/web/public
-COPY apps/web/next.config.ts ./apps/web/
 COPY apps/web/next.config.js ./apps/web/
 COPY apps/web/tailwind.config.ts ./apps/web/
 COPY apps/web/postcss.config.mjs ./apps/web/
@@ -39,6 +38,8 @@ FROM base AS builder
 # Build the packages first (including UI package with CSS)
 RUN turbo build --filter=@monorepo/ui
 RUN turbo build --filter=@monorepo/utils
+RUN turbo build --filter=@monorepo/types
+RUN turbo build --filter=@monorepo/database
 
 # Build the web app
 RUN turbo build --filter=web
@@ -69,7 +70,6 @@ COPY --from=builder /app/packages ./packages
 # Copy built web application
 COPY --from=builder /app/apps/web/.next ./apps/web/.next
 COPY --from=builder /app/apps/web/public ./apps/web/public
-COPY --from=builder /app/apps/web/next.config.ts ./apps/web/
 COPY --from=builder /app/apps/web/next.config.js ./apps/web/
 
 # Install production dependencies

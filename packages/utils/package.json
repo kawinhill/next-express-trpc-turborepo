@@ -5,12 +5,14 @@
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
   "keywords": [],
   "license": "ISC",
   "scripts": {
     "build": "tsc",
     "check-types": "tsc --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "dev": "tsc --watch"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -23,12 +25,17 @@
   },
   "exports": {
     ".": {
+      "source": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./styles": {
+      "source": "./src/styles.ts",
       "types": "./dist/styles.d.ts",
       "default": "./dist/styles.js"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
