@@ -1,9 +1,13 @@
 "use client";
 
-import type { ReactNode } from "react";
-
 import { NextIntlClientProvider, useTranslations } from "next-intl";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 type Locale = "en" | "th";
 
@@ -61,7 +65,12 @@ export function LocaleProvider({
   };
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages as any}>
+    <NextIntlClientProvider
+      locale={locale}
+      messages={
+        messages as Parameters<typeof NextIntlClientProvider>[0]["messages"]
+      }
+    >
       <TranslationWrapper locale={locale} setLocale={setLocale}>
         {children}
       </TranslationWrapper>
@@ -160,7 +169,7 @@ function TranslationWrapper({
           Object.entries(params).forEach(([paramKey, value]) => {
             message = (message as string).replace(
               `{${paramKey}}`,
-              String(value)
+              String(value),
             );
           });
         }

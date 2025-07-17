@@ -1,8 +1,12 @@
 "use client";
 
-import type { ReactNode } from "react";
-
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 type Theme = "dark" | "light" | "system";
 
