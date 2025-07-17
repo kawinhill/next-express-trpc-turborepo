@@ -2,8 +2,7 @@
 
 import type { ReactNode } from "react";
 
-import { NextIntlClientProvider } from "next-intl";
-import { useTranslations } from "next-intl";
+import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type Locale = "en" | "th";
@@ -19,7 +18,7 @@ const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
 interface LocaleProviderProps {
   children: ReactNode;
   initialLocale?: Locale;
-  messages?: any;
+  messages?: Record<string, unknown>;
 }
 
 export function LocaleProvider({
@@ -31,7 +30,7 @@ export function LocaleProvider({
   const [locale, setLocaleState] = useState<Locale>(() => {
     return initialLocale || getInitialLocale();
   });
-  const [isHydrated, setIsHydrated] = useState(false);
+  const [_isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     // Only re-detect on client if no initial locale was provided from server
@@ -50,7 +49,7 @@ export function LocaleProvider({
     // Update localStorage
     try {
       localStorage.setItem("locale", newLocale);
-    } catch (error) {
+    } catch {
       // localStorage might not be available
     }
 
@@ -62,7 +61,7 @@ export function LocaleProvider({
   };
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={messages as any}>
       <TranslationWrapper locale={locale} setLocale={setLocale}>
         {children}
       </TranslationWrapper>
@@ -99,7 +98,7 @@ function getInitialLocale(): Locale {
     if (savedLocale && ["en", "th"].includes(savedLocale)) {
       return savedLocale;
     }
-  } catch (error) {
+  } catch {
     // localStorage might not be available
   }
 
@@ -109,7 +108,7 @@ function getInitialLocale(): Locale {
     if (browserLang.startsWith("th")) {
       return "th";
     }
-  } catch (error) {
+  } catch {
     // navigator might not be available
   }
 
@@ -134,7 +133,7 @@ function TranslationWrapper({
     try {
       // First try direct key access
       if (translations.has(key)) {
-        return translations(key as any, params);
+        return translations(key, params);
       }
 
       // Try nested key access
@@ -142,22 +141,27 @@ function TranslationWrapper({
       if (keys.length > 1) {
         const namespace = keys[0];
         const nestedKey = keys.slice(1).join(".");
-        if (translations.has(`${namespace}.${nestedKey}` as any)) {
-          return translations(`${namespace}.${nestedKey}` as any, params);
+        if (translations.has(`${namespace}.${nestedKey}`)) {
+          return translations(`${namespace}.${nestedKey}`, params);
         }
       }
 
       // Try to access via raw
-      let message: any = translations.raw("");
+      let message = translations.raw("");
       for (const k of keys) {
-        message = message?.[k];
+        if (typeof message === "object" && message !== null) {
+          message = (message as Record<string, unknown>)[k];
+        }
       }
 
       if (message && typeof message === "string") {
         // Handle parameter substitution manually
         if (params) {
           Object.entries(params).forEach(([paramKey, value]) => {
-            message = message.replace(`{${paramKey}}`, String(value));
+            message = (message as string).replace(
+              `{${paramKey}}`,
+              String(value)
+            );
           });
         }
         return message;
@@ -165,7 +169,7 @@ function TranslationWrapper({
 
       // Fallback: return the key if not found
       return key;
-    } catch (error) {
+    } catch {
       // Ultimate fallback
       return key;
     }

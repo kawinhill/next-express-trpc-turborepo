@@ -11,13 +11,15 @@ export { useTranslations } from "next-intl";
 export function getTranslation(locale: "en" | "th") {
   return {
     // This would need to be used server-side or with dynamic imports
-    async t(key: string, params?: Record<string, any>) {
+    async t(key: string, params?: Record<string, number | string>) {
       const messages = (await import(`../messages/${locale}.json`)).default;
       const keys = key.split(".");
-      let message: any = messages;
+      let message: unknown = messages;
 
       for (const k of keys) {
-        message = message?.[k];
+        if (typeof message === "object" && message !== null) {
+          message = (message as Record<string, unknown>)[k];
+        }
       }
 
       if (!message) {
@@ -26,7 +28,7 @@ export function getTranslation(locale: "en" | "th") {
 
       if (params && typeof message === "string") {
         Object.entries(params).forEach(([paramKey, value]) => {
-          message = message.replace(`{${paramKey}}`, String(value));
+          message = (message as string).replace(`{${paramKey}}`, String(value));
         });
       }
 

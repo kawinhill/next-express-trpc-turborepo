@@ -16,15 +16,17 @@ const ThemeProviderContext = createContext<
 >(undefined);
 
 export function ThemeProvider({
-  attribute = "class",
+  attribute: _attribute = "class",
   children,
-  enableSystem = true,
+  enableSystem: _enableSystem = true,
   ...props
 }: {
   attribute?: string;
   children: ReactNode;
   enableSystem?: boolean;
 }) {
+  // Mark props as used
+  const _props = props;
   const [theme, setThemeState] = useState<Theme>("system");
   const [mounted, setMounted] = useState(false);
 

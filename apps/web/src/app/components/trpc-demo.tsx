@@ -15,7 +15,6 @@ const TRPCDemo = () => {
   const { t } = useLocale();
   const { getLocalizedError } = useErrorLocalization();
   const [name, setName] = useState("");
-  const [submitted, setSubmitted] = useState(false);
 
   const {
     data: greeting,
@@ -32,7 +31,6 @@ const TRPCDemo = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
     refetch();
   };
 

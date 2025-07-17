@@ -3,7 +3,6 @@
 import type { GetTestResponse } from "@monorepo/types";
 
 import { Card, CardContent, CardHeader } from "@monorepo/ui/components/card";
-import { cn } from "@monorepo/utils/styles";
 import { CheckCircle, Clock, Loader2, XCircle, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -13,7 +12,7 @@ import { useLocale } from "../../providers/locale-provider";
 interface ApiResponse {
   data?: GetTestResponse;
   error?: {
-    details?: any;
+    details?: unknown;
     message: string;
   };
   success: boolean;

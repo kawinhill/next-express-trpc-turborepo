@@ -1,5 +1,5 @@
 // import { useTranslations } from 'next-intl'
-import type { ErrorCode, LocalizedError } from "@monorepo/types";
+import type { LocalizedError } from "@monorepo/types";
 
 import { useErrorLocalization } from "./error-localization";
 
@@ -22,13 +22,19 @@ export function useErrorHandler() {
     return getLocalizedError("Unknown error");
   };
 
-  const handleApiError = (error: any): string => {
-    if (error?.data?.error) {
-      return getErrorMessage(error.data.error);
+  const handleApiError = (error: unknown): string => {
+    if (error && typeof error === "object" && "data" in error) {
+      const errorData = error as { data?: { error?: unknown } };
+      if (errorData.data?.error) {
+        return getErrorMessage(
+          errorData.data.error as Error | LocalizedError | string,
+        );
+      }
     }
 
-    if (error?.message) {
-      return getErrorMessage(error.message);
+    if (error && typeof error === "object" && "message" in error) {
+      const errorWithMessage = error as { message: string };
+      return getErrorMessage(errorWithMessage.message);
     }
 
     return getLocalizedError("Network error");

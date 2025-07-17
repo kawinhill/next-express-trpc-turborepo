@@ -65,7 +65,7 @@ const ServerStatus = () => {
             status: "error",
           };
         }
-      } catch (error) {
+      } catch {
         if (updatedChecks[0]) {
           updatedChecks[0] = {
             icon: updatedChecks[0].icon,
@@ -210,7 +210,7 @@ const ServerStatus = () => {
     }
   };
 
-  const overallStatus = getOverallStatus();
+  const _overallStatus = getOverallStatus();
 
   return (
     <div className="grid gap-4 md:grid-cols-3">

@@ -23,7 +23,7 @@ export function TRPCProvider({ children }: { children: ReactNode }) {
           url: getBaseUrl(),
         }),
       ],
-    }),
+    })
   );
 
   return (

@@ -13,10 +13,7 @@ import {
 import { useState } from "react";
 
 import { useLocale } from "../../providers/locale-provider";
-import {
-  ERROR_CODES,
-  useErrorLocalization,
-} from "../../utils/error-localization";
+import { useErrorLocalization } from "../../utils/error-localization";
 import { trpc } from "../../utils/trpc";
 
 const ErrorTest = () => {

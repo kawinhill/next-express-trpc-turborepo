@@ -2,7 +2,7 @@
 // This should match the router definition in the server
 export interface AppRouter {
   getVisitorCount: {
-    input: void;
+    input: Record<string, never>;
     output: { count: number };
   };
   hello: {
@@ -10,7 +10,7 @@ export interface AppRouter {
     output: { greeting: string; timestamp: string };
   };
   incrementVisitorCount: {
-    input: void;
+    input: Record<string, never>;
     output: { count: number };
   };
   testError: {

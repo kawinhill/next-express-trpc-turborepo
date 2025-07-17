@@ -1,6 +1,5 @@
 "use client";
 
-import { Badge } from "@monorepo/ui/components/badge";
 import { Card, CardContent } from "@monorepo/ui/components/card";
 import { Code2, Database, Layers, Rocket, Shield, Zap } from "lucide-react";
 
