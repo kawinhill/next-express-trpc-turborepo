@@ -1,55 +1,56 @@
 "use client";
 
-import { useLocale } from "../../providers/locale-provider";
 import { Badge } from "@monorepo/ui/components/badge";
 import { Card, CardContent } from "@monorepo/ui/components/card";
-import { Zap, Shield, Code2, Layers, Rocket, Database } from "lucide-react";
+import { Code2, Database, Layers, Rocket, Shield, Zap } from "lucide-react";
+
+import { useLocale } from "../../providers/locale-provider";
 
 export function HomeContent() {
   const { t } = useLocale();
 
   const features = [
     {
+      bgColor: "bg-blue-100 dark:bg-blue-900/50",
+      color: "text-blue-600 dark:text-blue-400",
+      description: t("home.features.typeScriptDesc"),
       icon: Code2,
       title: t("home.features.typeScript"),
-      description: t("home.features.typeScriptDesc"),
-      color: "text-blue-600 dark:text-blue-400",
-      bgColor: "bg-blue-100 dark:bg-blue-900/50",
     },
     {
+      bgColor: "bg-green-100 dark:bg-green-900/50",
+      color: "text-green-600 dark:text-green-400",
+      description: t("home.features.monorepoDesc"),
       icon: Layers,
       title: t("home.features.monorepo"),
-      description: t("home.features.monorepoDesc"),
-      color: "text-green-600 dark:text-green-400",
-      bgColor: "bg-green-100 dark:bg-green-900/50",
     },
     {
+      bgColor: "bg-purple-100 dark:bg-purple-900/50",
+      color: "text-purple-600 dark:text-purple-400",
+      description: t("home.features.trpcDesc"),
       icon: Zap,
       title: t("home.features.trpc"),
-      description: t("home.features.trpcDesc"),
-      color: "text-purple-600 dark:text-purple-400",
-      bgColor: "bg-purple-100 dark:bg-purple-900/50",
     },
     {
+      bgColor: "bg-orange-100 dark:bg-orange-900/50",
+      color: "text-orange-600 dark:text-orange-400",
+      description: t("home.features.nextjsDesc"),
       icon: Rocket,
       title: t("home.features.nextjs"),
-      description: t("home.features.nextjsDesc"),
-      color: "text-orange-600 dark:text-orange-400",
-      bgColor: "bg-orange-100 dark:bg-orange-900/50",
     },
     {
+      bgColor: "bg-red-100 dark:bg-red-900/50",
+      color: "text-red-600 dark:text-red-400",
+      description: t("home.features.expressDesc"),
       icon: Shield,
       title: t("home.features.express"),
-      description: t("home.features.expressDesc"),
-      color: "text-red-600 dark:text-red-400",
-      bgColor: "bg-red-100 dark:bg-red-900/50",
     },
     {
+      bgColor: "bg-indigo-100 dark:bg-indigo-900/50",
+      color: "text-indigo-600 dark:text-indigo-400",
+      description: t("home.features.databaseDesc"),
       icon: Database,
       title: t("home.features.database"),
-      description: t("home.features.databaseDesc"),
-      color: "text-indigo-600 dark:text-indigo-400",
-      bgColor: "bg-indigo-100 dark:bg-indigo-900/50",
     },
   ];
 
@@ -75,8 +76,8 @@ export function HomeContent() {
           const IconComponent = feature.icon;
           return (
             <Card
-              key={index}
               className="border-2 hover:shadow-lg transition-all duration-300"
+              key={index}
             >
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">

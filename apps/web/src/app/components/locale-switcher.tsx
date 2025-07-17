@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { useLocale } from "../../providers/locale-provider";
 import { Button } from "@monorepo/ui/components/button";
 import { Card, CardContent } from "@monorepo/ui/components/card";
-import { Globe, ChevronDown } from "lucide-react";
+import { ChevronDown, Globe } from "lucide-react";
+import { useState } from "react";
+
+import { useLocale } from "../../providers/locale-provider";
 
 const LocaleSwitcher = () => {
   const { locale, setLocale, t } = useLocale();
@@ -25,10 +26,10 @@ const LocaleSwitcher = () => {
   return (
     <div className="relative">
       <Button
-        variant="outline"
-        size="sm"
-        onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 min-w-[120px]"
+        onClick={() => setIsOpen(!isOpen)}
+        size="sm"
+        variant="outline"
       >
         <Globe className="w-4 h-4" />
         <span className="hidden sm:inline">{currentLocale.name}</span>
@@ -42,11 +43,11 @@ const LocaleSwitcher = () => {
           <CardContent className="p-2">
             {locales.map((loc) => (
               <Button
-                key={loc.code}
-                variant={locale === loc.code ? "default" : "ghost"}
-                size="sm"
-                onClick={() => handleLocaleChange(loc.code)}
                 className="w-full justify-start gap-3 mb-1 last:mb-0"
+                key={loc.code}
+                onClick={() => handleLocaleChange(loc.code)}
+                size="sm"
+                variant={locale === loc.code ? "default" : "ghost"}
               >
                 <span>{loc.name}</span>
               </Button>

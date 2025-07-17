@@ -1,13 +1,14 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
+
+import { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "dark" | "light" | "system";
 
 interface ThemeProviderContextType {
-  theme: Theme;
   setTheme: (theme: Theme) => void;
+  theme: Theme;
 }
 
 const ThemeProviderContext = createContext<
@@ -15,13 +16,13 @@ const ThemeProviderContext = createContext<
 >(undefined);
 
 export function ThemeProvider({
-  children,
   attribute = "class",
+  children,
   enableSystem = true,
   ...props
 }: {
-  children: ReactNode;
   attribute?: string;
+  children: ReactNode;
   enableSystem?: boolean;
 }) {
   const [theme, setThemeState] = useState<Theme>("system");
@@ -61,7 +62,7 @@ export function ThemeProvider({
 
   // Always provide the context, even when not mounted
   return (
-    <ThemeProviderContext.Provider value={{ theme, setTheme }}>
+    <ThemeProviderContext.Provider value={{ setTheme, theme }}>
       {children}
     </ThemeProviderContext.Provider>
   );

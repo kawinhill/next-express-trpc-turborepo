@@ -15,22 +15,22 @@ export type ErrorCode = z.infer<typeof ErrorCodeSchema>;
 
 export const LocalizedErrorSchema = z.object({
   code: ErrorCodeSchema,
-  messageKey: z.string(),
   details: z.record(z.any()).optional(),
+  messageKey: z.string(),
   statusCode: z.number(),
 });
 
 export type LocalizedError = z.infer<typeof LocalizedErrorSchema>;
 
 export const ERROR_MESSAGES: Record<ErrorCode, string> = {
-  VALIDATION_ERROR: "errors.validation",
-  NOT_FOUND: "errors.notFound",
-  UNAUTHORIZED: "errors.unauthorized",
-  FORBIDDEN: "errors.forbidden",
-  INTERNAL_ERROR: "errors.internal",
-  RATE_LIMIT_EXCEEDED: "errors.rateLimit",
   BAD_REQUEST: "errors.badRequest",
   CONFLICT: "errors.conflict",
+  FORBIDDEN: "errors.forbidden",
+  INTERNAL_ERROR: "errors.internal",
+  NOT_FOUND: "errors.notFound",
+  RATE_LIMIT_EXCEEDED: "errors.rateLimit",
+  UNAUTHORIZED: "errors.unauthorized",
+  VALIDATION_ERROR: "errors.validation",
 };
 
 export class AppError extends Error {
@@ -38,7 +38,7 @@ export class AppError extends Error {
     public code: ErrorCode,
     public messageKey: string = ERROR_MESSAGES[code],
     public details?: Record<string, any>,
-    public statusCode: number = 500
+    public statusCode: number = 500,
   ) {
     super(messageKey);
     this.name = "AppError";
@@ -47,8 +47,8 @@ export class AppError extends Error {
   toJSON(): LocalizedError {
     return {
       code: this.code,
-      messageKey: this.messageKey,
       details: this.details,
+      messageKey: this.messageKey,
       statusCode: this.statusCode,
     };
   }

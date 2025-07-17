@@ -1,12 +1,13 @@
 "use client";
 
-import { Card, CardContent, CardHeader } from "@monorepo/ui/components/card";
 import { Badge } from "@monorepo/ui/components/badge";
 import { Button } from "@monorepo/ui/components/button";
-import { Users, Plus, Loader2, RefreshCw } from "lucide-react";
+import { Card, CardContent, CardHeader } from "@monorepo/ui/components/card";
+import { Loader2, Plus, RefreshCw, Users } from "lucide-react";
 import { useEffect, useState } from "react";
-import { trpc } from "../../utils/trpc";
+
 import { useLocale } from "../../providers/locale-provider";
+import { trpc } from "../../utils/trpc";
 
 const VisitorCounter = () => {
   const { t } = useLocale();
@@ -15,8 +16,8 @@ const VisitorCounter = () => {
 
   const {
     data: visitorData,
-    isLoading,
     error,
+    isLoading,
     refetch,
   } = trpc.getVisitorCount.useQuery();
 
@@ -74,12 +75,12 @@ const VisitorCounter = () => {
           </div>
           <div className="flex-shrink-0">
             <Badge
-              variant="secondary"
               className={
                 hasError
                   ? "bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300"
                   : "bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300"
               }
+              variant="secondary"
             >
               {hasError
                 ? t("components.visitorCounter.offline")
@@ -104,10 +105,10 @@ const VisitorCounter = () => {
                 </p>
               </div>
               <Button
-                onClick={handleRetry}
-                variant="outline"
-                size="sm"
                 className="ml-3 border-red-300 text-red-700 hover:bg-red-100 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-900/30"
+                onClick={handleRetry}
+                size="sm"
+                variant="outline"
               >
                 <RefreshCw className="w-3 h-3 mr-1" />
                 {t("components.visitorCounter.retry")}
@@ -147,11 +148,11 @@ const VisitorCounter = () => {
               </div>
 
               <Button
-                onClick={handleIncrementVisit}
-                disabled={isIncrementing || hasError !== null}
-                variant="outline"
-                size="sm"
                 className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 hover:from-blue-100 hover:to-indigo-100 dark:hover:from-blue-900/50 dark:hover:to-indigo-900/50 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isIncrementing || hasError !== null}
+                onClick={handleIncrementVisit}
+                size="sm"
+                variant="outline"
               >
                 {isIncrementing ? (
                   <>

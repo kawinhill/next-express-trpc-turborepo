@@ -2,19 +2,19 @@
 const config = {
   api: {
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001",
-    version: process.env.NEXT_PUBLIC_API_VERSION || "v1",
     trpcUrl:
       process.env.NEXT_PUBLIC_TRPC_URL || "http://localhost:3001/v1/trpc",
+    version: process.env.NEXT_PUBLIC_API_VERSION || "v1",
   },
   app: {
+    environment: process.env.NODE_ENV || "development",
     name: process.env.NEXT_PUBLIC_APP_NAME || "Next.js App",
     version: process.env.NEXT_PUBLIC_APP_VERSION || "1.0.0",
-    environment: process.env.NODE_ENV || "development",
   },
   env: {
-    nodeEnv: process.env.NEXT_PUBLIC_NODE_ENV || "development",
     isDevelopment: process.env.NEXT_PUBLIC_NODE_ENV === "development",
     isProduction: process.env.NEXT_PUBLIC_NODE_ENV === "production",
+    nodeEnv: process.env.NEXT_PUBLIC_NODE_ENV || "development",
   },
   external: {
     analyticsId: process.env.NEXT_PUBLIC_ANALYTICS_ID,

@@ -1,14 +1,14 @@
 "use client";
 
-import GetTest from "./components/get-test";
-import TRPCDemo from "./components/trpc-demo";
-import ServerStatus from "./components/server-status";
-import VisitorCounter from "./components/visitor-counter";
-import ErrorTest from "./components/error-test";
-import LocaleSwitcher from "./components/locale-switcher";
-import { SimpleThemeToggle } from "./components/simple-theme-toggle";
-import { HomeContent } from "./components/home-content";
 import { useLocale } from "../providers/locale-provider";
+import ErrorTest from "./components/error-test";
+import GetTest from "./components/get-test";
+import { HomeContent } from "./components/home-content";
+import LocaleSwitcher from "./components/locale-switcher";
+import ServerStatus from "./components/server-status";
+import { SimpleThemeToggle } from "./components/simple-theme-toggle";
+import TRPCDemo from "./components/trpc-demo";
+import VisitorCounter from "./components/visitor-counter";
 
 export default function Home() {
   const { t } = useLocale();

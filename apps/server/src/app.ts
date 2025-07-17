@@ -1,11 +1,12 @@
-import express from "express";
 import cors from "cors";
+import express from "express";
+
 import { config } from "./config";
-import { rateLimiter, securityHeaders } from "./middleware/security";
 import { errorHandler, notFoundHandler } from "./middleware/error-handler";
-import logger from "./utils/logger";
+import { rateLimiter, securityHeaders } from "./middleware/security";
 import testRoutes from "./routes/test";
 import { trpcHandler } from "./routes/trpc";
+import logger from "./utils/logger";
 
 const app = express();
 
@@ -22,6 +23,17 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "x-locale",
+      "x-trpc-source",
+      "x-requested-with",
+    ],
+    credentials: config.CORS_CREDENTIALS,
+    exposedHeaders: ["x-locale"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    optionsSuccessStatus: 200, // Some legacy browsers choke on 204
     origin: function (origin, callback) {
       // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
@@ -59,35 +71,24 @@ app.use(
       logger.error(`CORS: Blocking origin ${origin}`);
       callback(new Error("Not allowed by CORS"));
     },
-    credentials: config.CORS_CREDENTIALS,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "x-locale",
-      "x-trpc-source",
-      "x-requested-with",
-    ],
-    exposedHeaders: ["x-locale"],
-    optionsSuccessStatus: 200, // Some legacy browsers choke on 204
     preflightContinue: false,
-  })
+  }),
 );
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Express API Server",
-    version: config.API_VERSION,
-    environment: config.NODE_ENV,
-    timestamp: new Date().toISOString(),
     cors: {
-      origin: config.CORS_ORIGIN,
       credentials: config.CORS_CREDENTIALS,
+      origin: config.CORS_ORIGIN,
     },
+    environment: config.NODE_ENV,
     headers: {
       origin: req.headers.origin,
       userAgent: req.headers["user-agent"],
     },
+    message: "Express API Server",
+    timestamp: new Date().toISOString(),
+    version: config.API_VERSION,
   });
 });
 

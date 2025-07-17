@@ -1,20 +1,22 @@
 "use client";
 
 import type { GetTestResponse } from "@monorepo/types";
+
 import { Card, CardContent, CardHeader } from "@monorepo/ui/components/card";
 import { cn } from "@monorepo/utils/styles";
-import { Loader2, CheckCircle, XCircle, Zap, Clock } from "lucide-react";
+import { CheckCircle, Clock, Loader2, XCircle, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
+
 import { getApiUrl } from "../../config";
 import { useLocale } from "../../providers/locale-provider";
 
 interface ApiResponse {
-  success: boolean;
   data?: GetTestResponse;
   error?: {
-    message: string;
     details?: any;
+    message: string;
   };
+  success: boolean;
   timestamp: string;
 }
 
@@ -23,7 +25,7 @@ const GetTest = () => {
   const [test, setTest] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<null | string>(null);
-  const [responseTime, setResponseTime] = useState<number | null>(null);
+  const [responseTime, setResponseTime] = useState<null | number>(null);
 
   useEffect(() => {
     const fetchTest = async () => {

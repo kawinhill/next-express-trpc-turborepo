@@ -1,125 +1,20 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
+
 import { NextIntlClientProvider } from "next-intl";
 import { useTranslations } from "next-intl";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type Locale = "en" | "th";
 
 interface LocaleContextType {
   locale: Locale;
   setLocale: (locale: Locale) => void;
-  t: (key: string, params?: Record<string, string | number>) => string;
+  t: (key: string, params?: Record<string, number | string>) => string;
 }
 
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
-
-function getInitialLocale(): Locale {
-  // Check if we're on the client side
-  if (typeof window === "undefined") {
-    return "en"; // Default for SSR
-  }
-
-  // 1. Check for cookie first (highest priority)
-  const cookieMatch = document.cookie.match(/NEXT_LOCALE=([^;]+)/);
-  if (cookieMatch) {
-    const cookieLocale = cookieMatch[1] as Locale;
-    if (["en", "th"].includes(cookieLocale)) {
-      return cookieLocale;
-    }
-  }
-
-  // 2. Check localStorage
-  try {
-    const savedLocale = localStorage.getItem("locale") as Locale;
-    if (savedLocale && ["en", "th"].includes(savedLocale)) {
-      return savedLocale;
-    }
-  } catch (error) {
-    // localStorage might not be available
-  }
-
-  // 3. Check browser language
-  try {
-    const browserLang = navigator.language.toLowerCase();
-    if (browserLang.startsWith("th")) {
-      return "th";
-    }
-  } catch (error) {
-    // navigator might not be available
-  }
-
-  // 4. Default fallback
-  return "en";
-}
-
-// Translation wrapper component that uses next-intl
-function TranslationWrapper({
-  children,
-  locale,
-  setLocale,
-}: {
-  children: ReactNode;
-  locale: Locale;
-  setLocale: (locale: Locale) => void;
-}) {
-  const translations = useTranslations();
-
-  // Custom translation function that preserves the existing API
-  const t = (key: string, params?: Record<string, string | number>) => {
-    try {
-      // First try direct key access
-      if (translations.has(key)) {
-        return translations(key as any, params);
-      }
-
-      // Try nested key access
-      const keys = key.split(".");
-      if (keys.length > 1) {
-        const namespace = keys[0];
-        const nestedKey = keys.slice(1).join(".");
-        if (translations.has(`${namespace}.${nestedKey}` as any)) {
-          return translations(`${namespace}.${nestedKey}` as any, params);
-        }
-      }
-
-      // Try to access via raw
-      let message: any = translations.raw("");
-      for (const k of keys) {
-        message = message?.[k];
-      }
-
-      if (message && typeof message === "string") {
-        // Handle parameter substitution manually
-        if (params) {
-          Object.entries(params).forEach(([paramKey, value]) => {
-            message = message.replace(`{${paramKey}}`, String(value));
-          });
-        }
-        return message;
-      }
-
-      // Fallback: return the key if not found
-      return key;
-    } catch (error) {
-      // Ultimate fallback
-      return key;
-    }
-  };
-
-  const contextValue = {
-    locale,
-    setLocale,
-    t,
-  };
-
-  return (
-    <LocaleContext.Provider value={contextValue}>
-      {children}
-    </LocaleContext.Provider>
-  );
-}
 
 interface LocaleProviderProps {
   children: ReactNode;
@@ -181,4 +76,110 @@ export function useLocale() {
     throw new Error("useLocale must be used within a LocaleProvider");
   }
   return context;
+}
+
+function getInitialLocale(): Locale {
+  // Check if we're on the client side
+  if (typeof window === "undefined") {
+    return "en"; // Default for SSR
+  }
+
+  // 1. Check for cookie first (highest priority)
+  const cookieMatch = document.cookie.match(/NEXT_LOCALE=([^;]+)/);
+  if (cookieMatch) {
+    const cookieLocale = cookieMatch[1] as Locale;
+    if (["en", "th"].includes(cookieLocale)) {
+      return cookieLocale;
+    }
+  }
+
+  // 2. Check localStorage
+  try {
+    const savedLocale = localStorage.getItem("locale") as Locale;
+    if (savedLocale && ["en", "th"].includes(savedLocale)) {
+      return savedLocale;
+    }
+  } catch (error) {
+    // localStorage might not be available
+  }
+
+  // 3. Check browser language
+  try {
+    const browserLang = navigator.language.toLowerCase();
+    if (browserLang.startsWith("th")) {
+      return "th";
+    }
+  } catch (error) {
+    // navigator might not be available
+  }
+
+  // 4. Default fallback
+  return "en";
+}
+
+// Translation wrapper component that uses next-intl
+function TranslationWrapper({
+  children,
+  locale,
+  setLocale,
+}: {
+  children: ReactNode;
+  locale: Locale;
+  setLocale: (locale: Locale) => void;
+}) {
+  const translations = useTranslations();
+
+  // Custom translation function that preserves the existing API
+  const t = (key: string, params?: Record<string, number | string>) => {
+    try {
+      // First try direct key access
+      if (translations.has(key)) {
+        return translations(key as any, params);
+      }
+
+      // Try nested key access
+      const keys = key.split(".");
+      if (keys.length > 1) {
+        const namespace = keys[0];
+        const nestedKey = keys.slice(1).join(".");
+        if (translations.has(`${namespace}.${nestedKey}` as any)) {
+          return translations(`${namespace}.${nestedKey}` as any, params);
+        }
+      }
+
+      // Try to access via raw
+      let message: any = translations.raw("");
+      for (const k of keys) {
+        message = message?.[k];
+      }
+
+      if (message && typeof message === "string") {
+        // Handle parameter substitution manually
+        if (params) {
+          Object.entries(params).forEach(([paramKey, value]) => {
+            message = message.replace(`{${paramKey}}`, String(value));
+          });
+        }
+        return message;
+      }
+
+      // Fallback: return the key if not found
+      return key;
+    } catch (error) {
+      // Ultimate fallback
+      return key;
+    }
+  };
+
+  const contextValue = {
+    locale,
+    setLocale,
+    t,
+  };
+
+  return (
+    <LocaleContext.Provider value={contextValue}>
+      {children}
+    </LocaleContext.Provider>
+  );
 }

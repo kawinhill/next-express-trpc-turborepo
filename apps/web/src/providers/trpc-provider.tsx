@@ -1,25 +1,13 @@
 "use client";
 
+import type { ReactNode } from "react";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { useState } from "react";
-import type { ReactNode } from "react";
-import { trpc } from "../utils/trpc";
+
 import config from "../config";
-
-function getBaseUrl() {
-  if (typeof window !== "undefined") return config.api.trpcUrl;
-
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-
-  if (process.env.RENDER_INTERNAL_HOSTNAME) {
-    return `http://${process.env.RENDER_INTERNAL_HOSTNAME}:${process.env.PORT}`;
-  }
-
-  return config.api.trpcUrl;
-}
+import { trpc } from "../utils/trpc";
 
 export function TRPCProvider({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -35,7 +23,7 @@ export function TRPCProvider({ children }: { children: ReactNode }) {
           url: getBaseUrl(),
         }),
       ],
-    })
+    }),
   );
 
   return (
@@ -43,4 +31,18 @@ export function TRPCProvider({ children }: { children: ReactNode }) {
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </trpc.Provider>
   );
+}
+
+function getBaseUrl() {
+  if (typeof window !== "undefined") return config.api.trpcUrl;
+
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  if (process.env.RENDER_INTERNAL_HOSTNAME) {
+    return `http://${process.env.RENDER_INTERNAL_HOSTNAME}:${process.env.PORT}`;
+  }
+
+  return config.api.trpcUrl;
 }

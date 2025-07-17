@@ -1,18 +1,8 @@
-import { Request, Response, NextFunction } from "express";
+import { AppError, ERROR_MESSAGES, type ErrorCode } from "@monorepo/types";
+import { type NextFunction, type Request, type Response } from "express";
 import { ZodError } from "zod";
-import { AppError, ERROR_MESSAGES, ErrorCode } from "@monorepo/types";
-import logger from "../utils/logger";
 
-export class ValidationError extends AppError {
-  constructor(message?: string) {
-    super(
-      "VALIDATION_ERROR",
-      ERROR_MESSAGES.VALIDATION_ERROR,
-      { message },
-      400
-    );
-  }
-}
+import logger from "../utils/logger";
 
 export class NotFoundError extends AppError {
   constructor(message?: string) {
@@ -20,17 +10,28 @@ export class NotFoundError extends AppError {
   }
 }
 
+export class ValidationError extends AppError {
+  constructor(message?: string) {
+    super(
+      "VALIDATION_ERROR",
+      ERROR_MESSAGES.VALIDATION_ERROR,
+      { message },
+      400,
+    );
+  }
+}
+
 export const errorHandler = (
   err: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   logger.error("Error occurred:", {
     message: err.message,
+    method: req.method,
     stack: err.stack,
     url: req.url,
-    method: req.method,
   });
 
   let error = { ...err };
@@ -45,8 +46,8 @@ export const errorHandler = (
 
   if (err instanceof AppError) {
     res.status(err.statusCode).json({
-      success: false,
       error: err.toJSON(),
+      success: false,
     });
     return;
   }
@@ -56,20 +57,20 @@ export const errorHandler = (
   const messageKey = ERROR_MESSAGES[code];
 
   res.status(statusCode).json({
-    success: false,
     error: {
       code,
       messageKey,
       statusCode,
     },
+    success: false,
   });
 };
 
 export const notFoundHandler = (req: Request, res: Response): void => {
   const error = new NotFoundError(`Route ${req.originalUrl} not found`);
   res.status(404).json({
-    success: false,
     error: error.toJSON(),
+    success: false,
   });
 };
 

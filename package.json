@@ -13,7 +13,7 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "lint": "turbo lint --continue --",
-    "lint:fix": "turbo lint --continue -- --apply",
+    "lint:fix": "turbo lint --continue -- --fix",
     "type-check": "turbo type-check --continue --",
     "clean": "turbo clean",
     "db:generate": "turbo db:generate",

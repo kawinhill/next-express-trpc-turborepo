@@ -1,23 +1,23 @@
 import { z } from "zod";
 
 export const BaseResponseSchema = z.object({
+  message: z.string().optional(),
   success: z.boolean(),
   timestamp: z.string(),
-  message: z.string().optional(),
 });
 
 export const ErrorResponseSchema = BaseResponseSchema.extend({
-  success: z.literal(false),
   error: z.object({
-    message: z.string(),
     code: z.string().optional(),
     details: z.any().optional(),
+    message: z.string(),
   }),
+  success: z.literal(false),
 });
 
 export const SuccessResponseSchema = BaseResponseSchema.extend({
-  success: z.literal(true),
   data: z.any().optional(),
+  success: z.literal(true),
 });
 
 export const GetTestRequestSchema = z.object({
@@ -41,7 +41,7 @@ export const HealthCheckResponseSchema = z.object({
 
 export type BaseResponse = z.infer<typeof BaseResponseSchema>;
 export type ErrorResponse = z.infer<typeof ErrorResponseSchema>;
-export type SuccessResponse = z.infer<typeof SuccessResponseSchema>;
 export type GetTestRequest = z.infer<typeof GetTestRequestSchema>;
 export type GetTestResponse = z.infer<typeof GetTestResponseSchema>;
 export type HealthCheckResponse = z.infer<typeof HealthCheckResponseSchema>;
+export type SuccessResponse = z.infer<typeof SuccessResponseSchema>;

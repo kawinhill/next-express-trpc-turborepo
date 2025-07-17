@@ -1,11 +1,12 @@
 // import { useTranslations } from 'next-intl'
-import type { LocalizedError, ErrorCode } from "@monorepo/types";
+import type { ErrorCode, LocalizedError } from "@monorepo/types";
+
 import { useErrorLocalization } from "./error-localization";
 
 export function useErrorHandler() {
   const { getLocalizedError } = useErrorLocalization();
 
-  const getErrorMessage = (error: LocalizedError | Error | string): string => {
+  const getErrorMessage = (error: Error | LocalizedError | string): string => {
     if (typeof error === "string") {
       return getLocalizedError(error);
     }

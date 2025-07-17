@@ -1,14 +1,15 @@
 "use client";
 
-import { Card, CardContent, CardHeader } from "@monorepo/ui/components/card";
 import { Button } from "@monorepo/ui/components/button";
+import { Card, CardContent, CardHeader } from "@monorepo/ui/components/card";
 import { Input } from "@monorepo/ui/components/input";
 import { Label } from "@monorepo/ui/components/label";
-import { Loader2, CheckCircle, XCircle, Zap, Send } from "lucide-react";
+import { CheckCircle, Loader2, Send, XCircle, Zap } from "lucide-react";
 import { useState } from "react";
-import { trpc } from "../../utils/trpc";
+
 import { useLocale } from "../../providers/locale-provider";
 import { useErrorLocalization } from "../../utils/error-localization";
+import { trpc } from "../../utils/trpc";
 
 const TRPCDemo = () => {
   const { t } = useLocale();
@@ -18,15 +19,15 @@ const TRPCDemo = () => {
 
   const {
     data: greeting,
-    isLoading,
     error,
+    isLoading,
     refetch,
   } = trpc.hello.useQuery(
     { name: name || "World" },
     {
       enabled: false,
       retry: 2,
-    }
+    },
   );
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -92,27 +93,27 @@ const TRPCDemo = () => {
       </CardHeader>
 
       <CardContent className="pt-0 space-y-4">
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-sm font-medium">
+            <Label className="text-sm font-medium" htmlFor="name">
               {t("components.trpcDemo.enterName")}
             </Label>
             <div className="flex gap-2">
               <Input
+                className="flex-1"
+                disabled={isLoading}
                 id="name"
-                type="text"
-                placeholder={t("components.trpcDemo.namePlaceholder")}
-                value={name}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setName(e.target.value)
                 }
-                className="flex-1"
-                disabled={isLoading}
+                placeholder={t("components.trpcDemo.namePlaceholder")}
+                type="text"
+                value={name}
               />
               <Button
-                type="submit"
-                disabled={isLoading}
                 className="px-4 py-2 flex items-center gap-2"
+                disabled={isLoading}
+                type="submit"
               >
                 {isLoading ? (
                   <Loader2 className="w-4 h-4 animate-spin" />

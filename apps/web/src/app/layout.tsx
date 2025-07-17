@@ -1,13 +1,16 @@
 import "@monorepo/ui/globals.css";
+
 import type { Metadata } from "next";
-import { ThemeProvider } from "../providers/theme-provider";
-import { LocaleProvider } from "../providers/locale-provider";
-import { TRPCProvider } from "../providers/trpc-provider";
+
 import { headers } from "next/headers";
 
+import { LocaleProvider } from "../providers/locale-provider";
+import { ThemeProvider } from "../providers/theme-provider";
+import { TRPCProvider } from "../providers/trpc-provider";
+
 export const metadata: Metadata = {
-  title: "Next.js + Express + tRPC Turborepo",
   description: "Modern full-stack monorepo with type-safe APIs",
+  title: "Next.js + Express + tRPC Turborepo",
 };
 
 export default async function RootLayout({

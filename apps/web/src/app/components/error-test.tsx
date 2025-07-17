@@ -1,36 +1,37 @@
 "use client";
 
-import { Card, CardContent, CardHeader } from "@monorepo/ui/components/card";
 import { Button } from "@monorepo/ui/components/button";
+import { Card, CardContent, CardHeader } from "@monorepo/ui/components/card";
 import { Label } from "@monorepo/ui/components/label";
 import {
-  Loader2,
   AlertTriangle,
+  ChevronDown,
+  Loader2,
   XCircle,
   Zap,
-  ChevronDown,
 } from "lucide-react";
 import { useState } from "react";
-import { trpc } from "../../utils/trpc";
+
 import { useLocale } from "../../providers/locale-provider";
 import {
-  useErrorLocalization,
   ERROR_CODES,
+  useErrorLocalization,
 } from "../../utils/error-localization";
+import { trpc } from "../../utils/trpc";
 
 const ErrorTest = () => {
   const { t } = useLocale();
-  const { getLocalizedError, getErrorType } = useErrorLocalization();
+  const { getErrorType, getLocalizedError } = useErrorLocalization();
   const [selectedErrorType, setSelectedErrorType] =
     useState<string>("GENERIC_ERROR");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const { refetch, isLoading, error, isError } = trpc.testError.useQuery(
+  const { error, isError, isLoading, refetch } = trpc.testError.useQuery(
     { errorType: selectedErrorType },
     {
       enabled: false, // Don't auto-run
       retry: false, // Don't retry on error
-    }
+    },
   );
 
   const handleTriggerError = () => {
@@ -92,14 +93,14 @@ const ErrorTest = () => {
       <CardContent className="pt-0 space-y-4">
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="errorType" className="text-sm font-medium">
+            <Label className="text-sm font-medium" htmlFor="errorType">
               {t("components.errorTest.selectError")}
             </Label>
             <div className="relative">
               <Button
-                variant="outline"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="w-full justify-between bg-white dark:bg-slate-950 hover:bg-slate-50 dark:hover:bg-slate-900"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                variant="outline"
               >
                 <span>{t(`errors.types.${selectedErrorType}`)}</span>
                 <ChevronDown
@@ -112,13 +113,13 @@ const ErrorTest = () => {
                   <CardContent className="p-2">
                     {errorTypes.map((errorType) => (
                       <Button
+                        className="w-full justify-start mb-1 last:mb-0"
                         key={errorType}
+                        onClick={() => handleErrorTypeSelect(errorType)}
+                        size="sm"
                         variant={
                           selectedErrorType === errorType ? "default" : "ghost"
                         }
-                        size="sm"
-                        onClick={() => handleErrorTypeSelect(errorType)}
-                        className="w-full justify-start mb-1 last:mb-0"
                       >
                         {t(`errors.types.${errorType}`)}
                       </Button>
@@ -138,9 +139,9 @@ const ErrorTest = () => {
           </div>
 
           <Button
-            onClick={handleTriggerError}
-            disabled={isLoading}
             className="w-full flex items-center gap-2"
+            disabled={isLoading}
+            onClick={handleTriggerError}
             variant="outline"
           >
             {isLoading ? (

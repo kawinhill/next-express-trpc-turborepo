@@ -1,24 +1,11 @@
 "use client";
 
 import { useTranslations as useNextIntlTranslations } from "next-intl";
+
 import { useLocale } from "../providers/locale-provider";
 
 // Re-export next-intl utilities with consistent naming
 export { useTranslations } from "next-intl";
-
-// Custom hook that combines next-intl with our locale provider
-export function useI18n() {
-  const { locale, setLocale } = useLocale();
-  const t = useNextIntlTranslations();
-
-  return {
-    locale,
-    setLocale,
-    t,
-    // Legacy API compatibility
-    translate: t,
-  };
-}
 
 // Utility function for direct translation access (useful for utilities/services)
 export function getTranslation(locale: "en" | "th") {
@@ -45,5 +32,19 @@ export function getTranslation(locale: "en" | "th") {
 
       return String(message);
     },
+  };
+}
+
+// Custom hook that combines next-intl with our locale provider
+export function useI18n() {
+  const { locale, setLocale } = useLocale();
+  const t = useNextIntlTranslations();
+
+  return {
+    locale,
+    setLocale,
+    t,
+    // Legacy API compatibility
+    translate: t,
   };
 }

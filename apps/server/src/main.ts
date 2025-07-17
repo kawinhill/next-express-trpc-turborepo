@@ -1,4 +1,5 @@
 import "dotenv/config";
+
 import app from "./app";
 import { config } from "./config";
 
@@ -14,10 +15,10 @@ console.log("");
 const server = app.listen(config.PORT, config.HOST, () => {
   console.log(`🚀 Server running on http://${config.HOST}:${config.PORT}`);
   console.log(
-    `📡 API available at http://${config.HOST}:${config.PORT}${config.API_PREFIX}/${config.API_VERSION}`
+    `📡 API available at http://${config.HOST}:${config.PORT}${config.API_PREFIX}/${config.API_VERSION}`,
   );
   console.log(
-    `🔗 tRPC available at http://${config.HOST}:${config.PORT}/${config.API_VERSION}/trpc`
+    `🔗 tRPC available at http://${config.HOST}:${config.PORT}/${config.API_VERSION}/trpc`,
   );
   console.log(`💚 Health check at http://${config.HOST}:${config.PORT}/health`);
   console.log("");

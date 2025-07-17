@@ -1,31 +1,32 @@
 import winston from "winston";
+
 import { config } from "../config";
 
 const levels = {
-  error: 0,
-  warn: 1,
-  info: 2,
   debug: 3,
+  error: 0,
+  info: 2,
+  warn: 1,
 };
 
 const colors = {
-  error: "red",
-  warn: "yellow",
-  info: "green",
   debug: "blue",
+  error: "red",
+  info: "green",
+  warn: "yellow",
 };
 
 winston.addColors(colors);
 
 const logger = winston.createLogger({
-  level: config.LOG_LEVEL,
-  levels,
+  defaultMeta: { service: "server" },
   format: winston.format.combine(
     winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
     winston.format.errors({ stack: true }),
-    winston.format.json()
+    winston.format.json(),
   ),
-  defaultMeta: { service: "server" },
+  level: config.LOG_LEVEL,
+  levels,
   transports: [
     // Write all logs with importance level of `error` or less to `error.log`
     new winston.transports.File({ filename: "logs/error.log", level: "error" }),
@@ -42,13 +43,13 @@ if (config.isDevelopment) {
         winston.format.colorize({ all: true }),
         winston.format.simple(),
         winston.format.printf((info: winston.Logform.TransformableInfo) => {
-          const { timestamp, level, message, ...meta } = info;
+          const { level, message, timestamp, ...meta } = info;
           return `${timestamp} [${level}]: ${message} ${
             Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ""
           }`;
-        })
+        }),
       ),
-    })
+    }),
   );
 }
 

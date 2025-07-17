@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Moon, Sun, Monitor } from "lucide-react";
 import { Button } from "@monorepo/ui/components/button";
+import { Monitor, Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
+
 import { useTheme } from "../../providers/theme-provider";
 
 export function SimpleThemeToggle() {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -25,10 +26,10 @@ export function SimpleThemeToggle() {
 
   const getIcon = () => {
     switch (theme) {
-      case "light":
-        return <Sun className="h-[1.2rem] w-[1.2rem]" />;
       case "dark":
         return <Moon className="h-[1.2rem] w-[1.2rem]" />;
+      case "light":
+        return <Sun className="h-[1.2rem] w-[1.2rem]" />;
       case "system":
         return <Monitor className="h-[1.2rem] w-[1.2rem]" />;
       default:
@@ -38,10 +39,10 @@ export function SimpleThemeToggle() {
 
   const getTooltip = () => {
     switch (theme) {
-      case "light":
-        return "Switch to dark mode";
       case "dark":
         return "Switch to system mode";
+      case "light":
+        return "Switch to dark mode";
       case "system":
         return "Switch to light mode";
       default:
@@ -53,10 +54,10 @@ export function SimpleThemeToggle() {
   if (!mounted) {
     return (
       <Button
-        variant="outline"
-        size="icon"
-        disabled
         className="transition-all duration-200"
+        disabled
+        size="icon"
+        variant="outline"
       >
         <Sun className="h-[1.2rem] w-[1.2rem]" />
         <span className="sr-only">Loading theme toggle</span>
@@ -66,11 +67,11 @@ export function SimpleThemeToggle() {
 
   return (
     <Button
-      variant="outline"
-      size="icon"
-      onClick={cycleTheme}
-      title={getTooltip()}
       className="transition-all duration-200"
+      onClick={cycleTheme}
+      size="icon"
+      title={getTooltip()}
+      variant="outline"
     >
       {getIcon()}
       <span className="sr-only">{getTooltip()}</span>
